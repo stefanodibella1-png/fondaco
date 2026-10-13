@@ -51,7 +51,53 @@ h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.05;text-
 .menu{display:flex;gap:6px;align-items:center}
 .menu .lnk{border:0;background:rgba(246,239,224,.92);border-radius:6px;padding:8px 12px;font-weight:600;font-size:.88rem;cursor:pointer;box-shadow:var(--shadow)}
 .menu .btn{padding:8px 14px;font-size:.88rem;box-shadow:var(--shadow)}
-.burger{margin-left:auto;display:none;border:0;background:var(--carta);border-radius:6px;padding:8px 12px;font-weight:700;cursor:pointer;box-shadow:var(--shadow)}
+.burger{display:none;border:0;background:var(--carta);border-radius:6px;padding:8px 12px;font-weight:700;cursor:pointer;box-shadow:var(--shadow)}
+
+.trip-btn{display:flex;align-items:center;gap:7px;border:0;background:var(--carta);border-radius:6px;padding:8px 12px;font-weight:700;font-size:.88rem;cursor:pointer;box-shadow:var(--shadow);color:var(--ink)}
+.trip-btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.trip-btn b{min-width:20px;height:20px;border-radius:999px;background:var(--rosso);color:var(--cream);font-size:.74rem;display:grid;place-items:center;padding:0 5px;font-variant-numeric:tabular-nums}
+.trip-btn b.z{background:var(--line);color:var(--muted)}
+.tlbl{position:absolute;left:0;top:0;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;background:var(--giallo);color:var(--ink);font-weight:700;font-size:.78rem;display:grid;place-items:center;box-shadow:0 0 0 2px var(--ink);pointer-events:none}
+.toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 70px);transform:translateX(-50%);z-index:45;background:var(--ink);color:var(--cream);border-radius:8px;padding:9px 14px;font-size:.88rem;font-weight:600;box-shadow:var(--shadow);max-width:calc(100vw - 32px);text-align:center}
+.stampup{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 66px);transform:translateX(-50%);z-index:46;display:flex;gap:12px;align-items:center;padding:10px 14px 10px 10px;width:max-content;max-width:calc(100vw - 32px)}
+.stampup .st{width:54px;height:54px;flex:none}
+.stampup b{font-family:var(--display);font-weight:400;font-size:1.2rem;display:block;line-height:1.1}
+.stampup small{color:var(--muted);font-size:.8rem}
+.stampup button{border:0;background:none;color:var(--rosso);font-weight:700;cursor:pointer;padding:4px;font-size:.84rem}
+.st{border-radius:50%;background-size:cover;box-shadow:inset 0 0 0 3px var(--rosso),inset 0 0 0 6px rgba(246,239,224,.9);position:relative}
+.st.anim{animation:stamp .55s cubic-bezier(.2,.9,.3,1.4)}
+@keyframes stamp{from{transform:scale(1.9) rotate(-25deg);opacity:0}to{transform:scale(1) rotate(-8deg);opacity:1}}
+.tabs2{display:flex;gap:6px;flex-wrap:wrap}
+.tabs2 button{border:1.5px solid var(--line);background:var(--carta2);border-radius:999px;padding:6px 14px;font-weight:700;font-size:.88rem;cursor:pointer}
+.tabs2 button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--cream)}
+.trip{display:grid;gap:0}
+.leg{display:grid;grid-template-columns:28px 44px minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--carta2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.leg .num{width:28px;height:28px;border-radius:50%;background:var(--giallo);display:grid;place-items:center;font-weight:700;font-size:.85rem}
+.leg .sw{width:44px;height:44px}
+.leg b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.leg small{color:var(--muted);font-size:.8rem;display:block}
+.leg .disc{color:var(--verde);font-weight:700}
+.leg .ctl{display:flex;gap:4px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.leg .ctl button{border:1px solid var(--line);background:var(--carta);border-radius:6px;width:30px;height:30px;cursor:pointer;font-weight:700;line-height:1}
+.leg .ctl .n{font-family:var(--mono);font-size:.8rem;min-width:5.5ch;text-align:center}
+.road2{display:flex;align-items:center;gap:10px;padding:6px 0 6px 25px;color:var(--muted);font-family:var(--mono);font-size:.74rem}
+.road2::before{content:"";width:6px;height:26px;background-image:linear-gradient(var(--rosso) 0 25%,var(--giallo) 25% 50%,var(--verde) 50% 75%,var(--blu) 75%);background-size:6px 12px;border-radius:3px}
+.sum{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.sum div{background:var(--carta2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:grid;gap:2px}
+.sum span{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700}
+.sum b{font-family:var(--display);font-weight:400;font-size:1.5rem;font-variant-numeric:tabular-nums}
+.sum .save b{color:var(--verde)}
+.acts2{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.pass{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:16px 12px}
+.slot{display:grid;justify-items:center;gap:6px;text-align:center}
+.slot .st{width:78px;height:78px;transform:rotate(-8deg)}
+.slot .no{width:78px;height:78px;border-radius:50%;border:2px dashed var(--line);display:grid;place-items:center;font-family:var(--display);font-size:1.5rem;color:var(--line)}
+.slot b{font-size:.82rem}
+.slot small{color:var(--muted);font-size:.72rem}
+.badge{display:flex;gap:14px;align-items:center;background:var(--notte);color:var(--cream);border-radius:10px;padding:14px 16px}
+.badge b{font-family:var(--display);font-weight:400;font-size:1.5rem;color:var(--giallo)}
+.meter{height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--rosso),var(--giallo))}
 
 /* In basso */
 .dock{position:fixed;left:16px;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);z-index:20;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
@@ -222,6 +268,11 @@ h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.05;text-
   .scroll h3{font-size:1.35rem}
   .scroll p{font-size:.88rem}
   .scroll .acts .btn{padding:8px 12px;font-size:.85rem}
+  .trip-btn{margin-left:auto;padding:8px 10px}
+  .trip-btn span{display:none}
+  .leg{grid-template-columns:28px 40px minmax(0,1fr)}
+  .leg .ctl{grid-column:1 / -1;justify-content:flex-start}
+  .sum{grid-template-columns:repeat(2,minmax(0,1fr))}
   .drawer{left:12px;right:12px;width:auto;top:calc(env(safe-area-inset-top,0px) + 60px);bottom:calc(env(safe-area-inset-bottom,0px) + 12px);z-index:30}
   .mmenu{right:12px;top:calc(env(safe-area-inset-top,0px) + 58px)}
   .steps,.svcs{grid-template-columns:minmax(0,1fr)}
@@ -233,7 +284,7 @@ h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.05;text-
 .mmenu{position:fixed;right:16px;top:calc(env(safe-area-inset-top,0px) + 64px);z-index:26;display:grid;gap:4px;padding:10px;min-width:220px}
 .mmenu button,.mmenu a{border:0;background:none;text-align:left;padding:10px 12px;border-radius:6px;font-weight:600;cursor:pointer;text-decoration:none;color:var(--ink)}
 .mmenu button:hover,.mmenu a:hover{background:var(--carta2)}
-@media (prefers-reduced-motion:reduce){.intro,.lbl,.hint{transition:none}}
+@media (prefers-reduced-motion:reduce){.intro,.lbl,.hint{transition:none}.st.anim{animation:none}}
 </style>
 </head>
 <body>
@@ -257,12 +308,14 @@ h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.05;text-
     <button class="btn red" type="button" data-open="iscriviti">Iscrivi la struttura</button>
     <a class="btn ink cc-link" href="#" target="_blank" rel="noopener">Area host ↗</a>
   </nav>
+  <button class="trip-btn" type="button" data-open="viaggio" aria-label="Il mio viaggio"><svg viewBox="0 0 24 24"><path d="M4 19c4-1 3-7 8-7s4 4 8 3"/><circle cx="4" cy="19" r="2"/><circle cx="20" cy="15" r="2"/><path d="M12 3v5M9.5 5.5h5"/></svg><span>Il mio viaggio</span><b id="trip-n" class="z">0</b></button>
   <button class="burger" type="button" id="burger" aria-expanded="false">Menu</button>
 </header>
 <div class="mmenu paper" id="mmenu" hidden>
   <button type="button" data-open="ospiti">Per gli ospiti</button>
   <button type="button" data-open="host">Per gli host</button>
   <button type="button" data-open="gruppi">Gruppi</button>
+  <button type="button" data-open="passaporto">Passaporto del viaggiatore</button>
   <button type="button" data-open="iscriviti">Iscrivi la struttura</button>
   <a class="cc-link" href="#" target="_blank" rel="noopener">Area host ↗</a>
 </div>
@@ -277,6 +330,8 @@ h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.05;text-
 </div>
 <button class="seek" type="button" id="seek"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span><b>Cerca una struttura</b><small id="seek-n">tra le strutture della rete</small></span></button>
 <div class="hint" id="hint"></div>
+<div class="toast" id="toast" hidden></div>
+<div class="stampup paper" id="stampup" hidden></div>
 
 <div class="card paper" id="card" hidden></div>
 
@@ -491,9 +546,9 @@ function makeSky(scene,r){const u={top:{value:new THREE.Color()},hor:{value:new 
   const st=new THREE.Points(g,new THREE.PointsMaterial({color:0xfff6e0,size:r*.0035,transparent:true,opacity:0,fog:false,depthWrite:false}));scene.add(st);
   return{mesh:m,u,stars:st};}
 const TOD={
- giorno:{top:"#5f97d3",hor:"#efe4c6",sunC:"#fff3d6",sun:[-.3,1,.5],light:"#fff4e0",li:1.05,hemiS:"#d6e7ff",hemiG:"#b39a6a",hi:.62,sea:"#2a6ea3",fog:"#e7ddc2",mk:.95,bulb:.7,win:0,glow:.4,stars:0,bS:.25,bT:.97},
- tramonto:{top:"#24305f",hor:"#f0904a",sunC:"#ffb066",sun:[-1,.18,.55],light:"#ffb27a",li:1.15,hemiS:"#8a7fc0",hemiG:"#8a5a3a",hi:.5,sea:"#1f4c78",fog:"#d99063",mk:1.5,bulb:1.15,win:.45,glow:1,stars:.15,bS:.75,bT:.86},
- notte:{top:"#050918",hor:"#1b2552",sunC:"#9fb2ff",sun:[.5,.6,-.4],light:"#8ea2ff",li:.32,hemiS:"#33406e",hemiG:"#1a1a2a",hi:.24,sea:"#0b1932",fog:"#141b38",mk:2.4,bulb:2.1,win:1,glow:2.6,stars:.95,bS:1.15,bT:.62}};
+ giorno:{top:"#5f97d3",hor:"#efe4c6",sunC:"#fff3d6",sun:[-.3,1,.5],light:"#fff4e0",li:1.05,hemiS:"#d6e7ff",hemiG:"#b39a6a",hi:.62,sea:"#2a6ea3",fog:"#e7ddc2",mk:.95,bulb:.7,win:0,glow:.4,stars:0,bS:.25,bT:.98},
+ tramonto:{top:"#24305f",hor:"#f0904a",sunC:"#ffb066",sun:[-1,.18,.55],light:"#ffb27a",li:1.15,hemiS:"#8a7fc0",hemiG:"#8a5a3a",hi:.5,sea:"#1f4c78",fog:"#d99063",mk:1.5,bulb:1.15,win:.45,glow:1,stars:.15,bS:.6,bT:.93},
+ notte:{top:"#050918",hor:"#1b2552",sunC:"#9fb2ff",sun:[.5,.6,-.4],light:"#8ea2ff",li:.32,hemiS:"#33406e",hemiG:"#1a1a2a",hi:.24,sea:"#0b1932",fog:"#141b38",mk:2.4,bulb:2.1,win:1,glow:2.6,stars:.95,bS:1,bT:.86}};
 let todKey="tramonto";const todCur={},todFrom={},todTo={};let todT=1;
 const COLK=["top","hor","sunC","light","hemiS","hemiG","sea","fog"],NUMK=["li","hi","mk","bulb","win","glow","stars","bS","bT"];
 function todSnap(dst,src){COLK.forEach(k=>dst[k]=new THREE.Color(src[k]));NUMK.forEach(k=>dst[k]=src[k]);dst.sun=(Array.isArray(src.sun)?new THREE.Vector3(src.sun[0],src.sun[1],src.sun[2]):src.sun.clone()).normalize();}
@@ -533,17 +588,25 @@ const I={};
   // case dei paesi
   const nh=TOWNS.reduce((a,t)=>a+Math.max(5,Math.round(t.w/4)),0);
   I.houses=new THREE.InstancedMesh(new THREE.BoxGeometry(1,1,1).translate(0,.5,0),new THREE.MeshPhongMaterial({flatShading:true,emissive:0xffa64d,emissiveIntensity:0}),nh);let hi=0;
+  I.roofs=new THREE.InstancedMesh(new THREE.ConeGeometry(.74,.55,4).rotateY(Math.PI/4).translate(0,.275,0),new THREE.MeshPhongMaterial({flatShading:true,shininess:4}),nh);
+  const rc=["#a8462c","#b5553a","#9a3f2a","#c0663f"];
   const hc=["#f3e9d2","#eadbbd","#f6efe0","#e2c9a0","#f1dfc3","#d9b98f"];
   TOWNS.forEach(t=>{const n=Math.max(5,Math.round(t.w/4)),rad=.05+Math.sqrt(t.w)*.014;for(let k=0;k<n;k++){let x,z,L,tr=0;do{x=t.x+gauss()*rad*.6;z=t.z+gauss()*rad*.6;L=land(x,z);tr++;}while(L.d<.03&&tr<8);if(L.d<.02)continue;
-    dm.position.set(x,heightL(x,z,L)-.005,z);dm.rotation.set(0,rnd()*Math.PI,0);dm.scale.set(.035+rnd()*.035,.025+rnd()*.045,.035+rnd()*.035);dm.updateMatrix();I.houses.setMatrixAt(hi,dm.matrix);I.houses.setColorAt(hi,new THREE.Color(pick(hc)));hi++;}});
-  I.houses.count=hi;island.add(I.houses);
-  // strutture: una luce per struttura
-  I.mk=new THREE.InstancedMesh(new THREE.OctahedronGeometry(.03,0),new THREE.MeshBasicMaterial({toneMapped:false}),S.length);
-  S.forEach((s,i)=>{dm.position.set(s.x,s.y,s.z);dm.scale.setScalar(1);dm.updateMatrix();I.mk.setMatrixAt(i,dm.matrix);I.mk.setColorAt(i,new THREE.Color(MCOL[s.mc]));});
-  island.add(I.mk);I.vis=new Uint8Array(S.length).fill(1);I.dm=dm;
+    dm.position.set(x,heightL(x,z,L)-.005,z);dm.rotation.set(0,rnd()*Math.PI,0);const w=.016+rnd()*.012,hh=.012+rnd()*.014;dm.scale.set(w,hh,w);dm.updateMatrix();I.houses.setMatrixAt(hi,dm.matrix);I.houses.setColorAt(hi,new THREE.Color(pick(hc)));
+    dm.scale.set(w,w*.9,w);dm.position.y+=hh;dm.updateMatrix();I.roofs.setMatrixAt(hi,dm.matrix);I.roofs.setColorAt(hi,new THREE.Color(pick(rc)));hi++;}});
+  I.houses.count=hi;I.roofs.count=hi;island.add(I.houses,I.roofs);
+  // strutture: una casetta per struttura, col tetto nei colori della sua app
+  I.mk=new THREE.InstancedMesh(new THREE.BoxGeometry(.02,.017,.02).translate(0,.0085,0),new THREE.MeshPhongMaterial({flatShading:true,shininess:6,emissive:0xffb35c,emissiveIntensity:0}),S.length);
+  I.mkRoof=new THREE.InstancedMesh(new THREE.ConeGeometry(.0175,.013,4).rotateY(Math.PI/4).translate(0,.0235,0),new THREE.MeshPhongMaterial({flatShading:true,shininess:10}),S.length);
+  const bodyC=["#f6efe0","#efe2c4","#f3e6cf","#e9d6b0"];
+  S.forEach((s,i)=>{s.g=s.y-.05;s.rot=rnd()*Math.PI;I.mk.setColorAt(i,new THREE.Color(bodyC[i%4]));I.mkRoof.setColorAt(i,new THREE.Color(APPC[s.app][0]));});
+  island.add(I.mk,I.mkRoof);I.vis=new Uint8Array(S.length).fill(1);I.dm=dm;I.dirty=true;I.f=1;
   // faro sulla struttura scelta
-  I.beam=new THREE.Group();const bm=new THREE.Mesh(new THREE.CylinderGeometry(.006,.02,1.4,10,1,true).translate(0,.7,0),new THREE.MeshBasicMaterial({color:0xfff1b0,transparent:true,opacity:.55,blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false}));
-  const ring=new THREE.Mesh(new THREE.TorusGeometry(.07,.008,8,40),new THREE.MeshBasicMaterial({color:0xf2b705,toneMapped:false}));ring.rotation.x=Math.PI/2;I.beam.add(bm,ring);I.beam.visible=false;I.ring=ring;island.add(I.beam);
+  // bandierina con la maiolica sulla struttura scelta
+  I.beam=new THREE.Group();const pole=new THREE.Mesh(new THREE.CylinderGeometry(.0016,.0016,.09,6).translate(0,.045,0),new THREE.MeshPhongMaterial({color:0x2b2826}));
+  I.flagM=new THREE.MeshPhongMaterial({side:THREE.DoubleSide,shininess:30});const flag=new THREE.Mesh(new THREE.PlaneGeometry(.04,.04).translate(.02,0,0),I.flagM);flag.position.y=.07;
+  I.beam.add(pole,flag);I.beam.visible=false;I.ring=flag;island.add(I.beam);
+  I.tex={};I.tileTex=k=>I.tex[k]||(I.tex[k]=new THREE.TextureLoader().load(tileURL(k)));
   // Etna: fumo e bagliore del cratere, Stromboli
   const etop=H(EX,EZ);I.crater=new THREE.Mesh(new THREE.SphereGeometry(.06,10,8),new THREE.MeshBasicMaterial({color:0xff5a1f,toneMapped:false}));I.crater.position.set(EX,etop+.03,EZ);island.add(I.crater);
   const st=ISLES.find(i=>i.n==="Stromboli");I.strom=I.crater.clone();I.strom.material=I.crater.material;I.strom.scale.setScalar(.6);I.strom.position.set(st.x,H(st.x,st.z)+.02,st.z);island.add(I.strom);
@@ -575,7 +638,7 @@ let F={q:"",prov:"",beds:0,type:"",free:false},matched=S.slice(),shown=40,sel=nu
 const norm=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
 function applyFilter(){F.q=norm($("q").value.trim());F.prov=$("f-prov").value;F.beds=+$("f-beds").value;F.free=$("f-free").checked;
   matched=S.filter(s=>(!F.q||norm(s.n+" "+s.town).includes(F.q))&&(!F.prov||s.prov===F.prov)&&s.beds>=F.beds&&(!F.type||s.type===F.type)&&(!F.free||s.free));
-  I.vis.fill(0);matched.forEach(s=>I.vis[s.id]=1);shown=40;renderList();}
+  I.vis.fill(0);matched.forEach(s=>I.vis[s.id]=1);I.dirty=true;shown=40;renderList();}
 function renderList(){$("cnt").textContent=fmt(matched.length);
   $("res").innerHTML=matched.length?matched.slice(0,shown).map(s=>`<button class="item" type="button" data-id="${s.id}"><span class="sw" style="background-image:url(${tileURL(s.tp)})"></span><span style="min-width:0"><b>${s.n}</b><small>${s.type} · ${s.town}</small></span><span class="r">${s.beds} posti${s.free?"<em>libera</em>":""}</span></button>`).join("")+(matched.length>shown?`<button class="btn line more" type="button" id="more">Mostra altre ${fmt(Math.min(40,matched.length-shown))} di ${fmt(matched.length-shown)}</button>`:"")
     :`<div class="empty">Nessuna struttura con questi filtri. Prova a togliere "libera stanotte" o allarga la zona.</div>`;}
@@ -589,19 +652,86 @@ function openDrawer(){$("drawer").hidden=false;$("mmenu").hidden=true;}
 function closeDrawer(){$("drawer").hidden=true;}
 $("seek").onclick=()=>{$("drawer").hidden?openDrawer():closeDrawer();};
 
-function selectS(id,fly){const s=S[id];sel=s;if(mode!=="isola")setMode("isola");I.beam.visible=true;I.beam.position.set(s.x,s.y-.04,s.z);
+function selectS(id,fly){const s=S[id];sel=s;I.dirty=true;if(mode!=="isola")setMode("isola");I.beam.visible=true;I.beam.position.set(s.x,s.g,s.z);I.flagM.map=I.tileTex(s.tp);I.flagM.needsUpdate=true;
   if(fly)flyTo(new THREE.Vector3(s.x,s.y,s.z),1.5);if(innerWidth<860)closeDrawer();
   $("card").hidden=false;$("card").innerHTML=`<div class="fascia"></div><div class="in"><div class="hd"><span class="sw" style="background-image:url(${tileURL(s.tp)})"></span><div style="min-width:0"><h3>${s.n}</h3><div class="sub">${s.type} · ${s.town} (${s.prov})</div></div><button class="x" type="button" data-close="card" aria-label="Chiudi">×</button></div>
     <div class="facts"><span><b>${s.beds}</b> posti letto</span><span>da <b>${s.price} €</b> a notte</span><span>host <b>${s.host}</b></span></div>
     <div class="tags">${s.free?'<span class="tag free">Libera stanotte</span>':""}${s.serv.map(v=>`<span class="tag">${v}</span>`).join("")}</div>
-    <div class="acts"><button class="btn red" type="button" data-app="${s.id}">Apri la sua app</button><button class="btn line" type="button" id="msg">Scrivi a ${s.host}</button></div>
+    <div class="acts"><button class="btn red" type="button" data-trip-add="${s.id}">${tripHas(s.id)?"Nel tuo viaggio ✓":"+ Aggiungi al viaggio"}</button><button class="btn line" type="button" data-app="${s.id}">Apri la sua app</button><button class="btn line" type="button" id="msg">Scrivi a ${s.host}</button></div>
     <div class="note" id="msg-n">Prenoti direttamente con l'host: Fondaco non prende commissioni.</div></div>`;
   $("msg").onclick=()=>{$("msg-n").textContent=`Nel sito vero si apre la chat con ${s.host}. In questo prototipo nessun messaggio viene inviato.`;};}
+
+/* ============ Casette, viaggio, passaporto ============ */
+const LS={get(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v;}catch(_){return d;}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(_){}}};
+let trip=LS.get("fondaco-viaggio",[]).filter(t=>S[t.id]);
+let stamps=new Set(LS.get("fondaco-timbri",[]));
+const tripHas=id=>trip.some(t=>t.id===id);
+function updateHouses(){const dm=I.dm,f=I.f;
+  for(let i=0;i<S.length;i++){const s=S[i];const k=I.vis[i]?f*(sel&&sel.id===i?1.6:tripHas(i)?1.3:1):0;
+    dm.position.set(s.x,s.g,s.z);dm.rotation.set(0,s.rot,0);dm.scale.setScalar(k);dm.updateMatrix();I.mk.setMatrixAt(i,dm.matrix);I.mkRoof.setMatrixAt(i,dm.matrix);}
+  I.mk.instanceMatrix.needsUpdate=true;I.mkRoof.instanceMatrix.needsUpdate=true;I.dirty=false;}
+let toastT;function toast(m){const t=$("toast");t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2600);}
+const KM=(a,b)=>Math.max(5,Math.round(Math.hypot(a.x-b.x,a.z-b.z)*10*1.3/5)*5);
+const DISC=10;
+function tripSave(){LS.set("fondaco-viaggio",trip);const n=$("trip-n");n.textContent=trip.length;n.classList.toggle("z",!trip.length);I.dirty=true;drawTrip();}
+function tripToggle(id){if(tripHas(id)){trip=trip.filter(t=>t.id!==id);toast("Tolta dal viaggio");}else{trip.push({id,n:2});toast(`${S[id].n} è la tappa ${trip.length} del tuo viaggio`);}
+  tripSave();const b=document.querySelector(`[data-trip-add="${id}"]`);if(b)b.textContent=tripHas(id)?"Nel tuo viaggio ✓":"+ Aggiungi al viaggio";if(curPanel==="viaggio")$("m-body").innerHTML=tripHTML();}
+function tripTotals(){let nights=0,cost=0,save=0,km=0;trip.forEach((t,i)=>{const s=S[t.id],c=s.price*t.n;nights+=t.n;cost+=c;if(i>0){save+=Math.round(c*DISC/100);km+=KM(S[trip[i-1].id],s);}});return{nights,cost:cost-save,save,km};}
+function tripHTML(){const tabs=`<div class="tabs2"><button type="button" data-open="viaggio" aria-pressed="true">Il mio viaggio</button><button type="button" data-open="passaporto" aria-pressed="false">Passaporto · ${stamps.size}/${TAPPE.length}</button></div>`;
+  if(!trip.length)return `${tabs}<span class="eyebrow">Il mio viaggio</span><h2 id="m-title">Componi il tuo giro di Sicilia.</h2>
+    <p class="lead">Tocca una casetta sull'isola e scegli "Aggiungi al viaggio". Ogni struttura diventa una tappa: vedi notti, chilometri e quanto risparmi con lo sconto della rete dalla seconda tappa in poi.</p>
+    <div class="acts2"><button class="btn red" type="button" data-tr="suggest">Suggeriscimi un giro</button><button class="btn line" type="button" data-act="seek">Cerca una struttura</button></div>`;
+  const T=tripTotals();let h="";
+  trip.forEach((t,i)=>{const s=S[t.id];if(i>0)h+=`<div class="road2">${KM(S[trip[i-1].id],s)} km circa · ${S[trip[i-1].id].town} → ${s.town}</div>`;
+    h+=`<div class="leg"><span class="num">${i+1}</span><span class="sw" style="background-image:url(${tileURL(s.tp)})"></span><span style="min-width:0"><b>${s.n}</b><small>${s.type} · ${s.town} · host ${s.host}</small><small>${s.price} € a notte${i>0?` · <span class="disc">−${DISC}% rete</span>`:""}</small></span>
+      <span class="ctl"><button type="button" data-tr="dec" data-i="${i}" aria-label="Una notte in meno">−</button><span class="n">${t.n} ${t.n===1?"notte":"notti"}</span><button type="button" data-tr="inc" data-i="${i}" aria-label="Una notte in più">+</button>
+      <button type="button" data-tr="up" data-i="${i}" aria-label="Sposta prima" ${i===0?"disabled":""}>↑</button><button type="button" data-tr="down" data-i="${i}" aria-label="Sposta dopo" ${i===trip.length-1?"disabled":""}>↓</button><button type="button" data-tr="rm" data-i="${i}" aria-label="Togli tappa">×</button></span></div>`;});
+  return `${tabs}<span class="eyebrow">Il mio viaggio</span><h2 id="m-title">${trip.length} ${trip.length===1?"tappa":"tappe"}, da ${S[trip[0].id].town} a ${S[trip[trip.length-1].id].town}.</h2>
+   <div class="sum"><div><span>Notti</span><b>${T.nights}</b></div><div><span>Strada</span><b>${fmt(T.km)} km</b></div><div><span>Stima</span><b>${fmt(T.cost)} €</b></div><div class="save"><span>Risparmi</span><b>${fmt(T.save)} €</b></div></div>
+   <div class="trip">${h}</div>
+   <div class="acts2"><button class="btn red" type="button" data-tr="show">Mostra il percorso sull'isola</button><button class="btn line" type="button" data-tr="sort">Ordina per strada</button><button class="btn line" type="button" data-tr="send">Chiedi disponibilità a ${trip.length} host</button><button class="btn line" type="button" data-tr="clear">Svuota</button></div>
+   <p class="note" id="tr-note" style="margin:0">Prezzi e strutture di esempio. Chilometri in linea d'aria più il 30%, per dare un'idea della strada.</p>`;}
+function tripAction(a,i){
+  if(a==="inc")trip[i].n=Math.min(14,trip[i].n+1);
+  else if(a==="dec")trip[i].n=Math.max(1,trip[i].n-1);
+  else if(a==="up"&&i>0)[trip[i-1],trip[i]]=[trip[i],trip[i-1]];
+  else if(a==="down"&&i<trip.length-1)[trip[i+1],trip[i]]=[trip[i],trip[i+1]];
+  else if(a==="rm")trip.splice(i,1);
+  else if(a==="clear")trip=[];
+  else if(a==="sort"&&trip.length>2){const rest=trip.slice(1),out=[trip[0]];while(rest.length){const l=S[out[out.length-1].id];let bi=0,bd=1e9;rest.forEach((t,k)=>{const d=Math.hypot(S[t.id].x-l.x,S[t.id].z-l.z);if(d<bd){bd=d;bi=k;}});out.push(rest.splice(bi,1)[0]);}trip=out;}
+  else if(a==="suggest"){trip=[["Catania",2],["Taormina",2],["Siracusa",2],["Noto",1]].map(([tn,n])=>{const t=TOWNS.find(x=>x.n===tn);const c=t.ids.map(id=>S[id]).filter(s=>s.free&&s.beds>=2).sort((a,b)=>a.price-b.price)[0]||S[t.ids[0]];return{id:c.id,n};});toast("Ecco un giro di 7 notti sul lato dell'Etna");}
+  else if(a==="show"){closePanel();if(mode!=="isola")setMode("isola");drawTrip();frameIds(trip.map(t=>t.id));return;}
+  else if(a==="send"){$("tr-note").textContent=`Richiesta pronta per ${trip.length} host, con le notti di ogni tappa. Prototipo: nessun messaggio viene inviato.`;return;}
+  tripSave();$("m-body").innerHTML=tripHTML();}
+const TL=[];
+function drawTrip(){if(I.tripMesh){island.remove(I.tripMesh);I.tripMesh.geometry.dispose();I.tripMesh=null;}
+  TL.forEach(e=>e.remove());TL.length=0;
+  trip.forEach((t,i)=>{const e=document.createElement("span");e.className="tlbl";e.textContent=i+1;LB.appendChild(e);TL.push(e);e.dataset.id=t.id;});
+  if(trip.length<2)return;const pts=[];
+  for(let i=1;i<trip.length;i++){const a=S[trip[i-1].id],b=S[trip[i].id],d=Math.hypot(a.x-b.x,a.z-b.z);
+    for(let k=(i===1?0:1);k<=24;k++){const t=k/24;pts.push(new THREE.Vector3(a.x+(b.x-a.x)*t,a.g+(b.g-a.g)*t+Math.sin(t*Math.PI)*(.08+d*.12),a.z+(b.z-a.z)*t));}}
+  I.tripMesh=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),pts.length*2,.008,6,false),new THREE.MeshBasicMaterial({color:0xf2b705}));island.add(I.tripMesh);}
+function stampStyle(i){return `background-image:url(${tileURL(i*3+1)})`;}
+function earnStamp(i){if(stamps.has(i))return;stamps.add(i);LS.set("fondaco-timbri",[...stamps]);
+  const all=stamps.size===TAPPE.length,el=$("stampup");
+  el.innerHTML=`<span class="st anim" style="${stampStyle(i)}"></span><span style="min-width:0"><b>${all?"Carrettiere di Sicilia!":"Timbro: "+TAPPE[i][2]}</b><small>${stamps.size} di ${TAPPE.length} tappe della trazzera</small></span><button type="button" data-open="passaporto">Passaporto</button>`;
+  el.hidden=false;clearTimeout(el._t);el._t=setTimeout(()=>el.hidden=true,all?6000:3200);
+  if(all&&R.car)for(let k=0;k<8;k++)setTimeout(()=>burst(island,R.car.g.position.clone().add(new THREE.Vector3((rnd()-.5)*.6,.35+rnd()*.3,(rnd()-.5)*.6)),.18),k*300);}
+function passHTML(){const n=stamps.size,all=n===TAPPE.length;
+  return `<div class="tabs2"><button type="button" data-open="viaggio" aria-pressed="false">Il mio viaggio${trip.length?` · ${trip.length}`:""}</button><button type="button" data-open="passaporto" aria-pressed="true">Passaporto · ${n}/${TAPPE.length}</button></div>
+   <span class="eyebrow">Passaporto del viaggiatore</span><h2 id="m-title">${all?"Hai percorso tutta la trazzera.":`${n} timbri su ${TAPPE.length}.`}</h2>
+   <div class="meter" aria-hidden="true"><i style="width:${n/TAPPE.length*100}%"></i></div>
+   ${all?`<div class="badge"><span class="st" style="width:58px;height:58px;flex:none;${stampStyle(0)}"></span><span><b>Carrettiere di Sicilia</b><br><span style="opacity:.8">Da Catania a Cefalù, tappa per tappa.</span></span></div>`:""}
+   <p class="lead">Viaggia in carretto lungo la trazzera: a ogni tappa ricevi un timbro dipinto come una maiolica. Nella versione reale il timbro arriva a ogni soggiorno nella rete, inquadrando la maiolica in camera.</p>
+   <div class="pass">${TAPPE.map((t,i)=>`<div class="slot">${stamps.has(i)?`<span class="st" style="${stampStyle(i)}"></span>`:`<span class="no">${i+1}</span>`}<b>${t[2]}</b><small>${stamps.has(i)?t[3]:"da scoprire"}</small></div>`).join("")}</div>
+   <div class="acts2"><button class="btn red" type="button" data-act="carretto">${n?"Riprendi il viaggio in carretto":"Parti in carretto"}</button></div>`;}
 
 /* ============ Pergamene (sezioni) ============ */
 const IC={app:'<rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 18h4"/>',coin:'<circle cx="12" cy="12" r="9"/><path d="M15 9a3 3 0 0 0-3-1.5c-1.7 0-3 .9-3 2.2 0 3 6 1.6 6 4.6 0 1.3-1.3 2.2-3 2.2a3 3 0 0 1-3-1.5M12 6v1.5M12 16.5V18"/>',swap:'<path d="M4 8h14l-4-4M20 16H6l4 4"/>',people:'<circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20a6 6 0 0 1 12 0M15 20a4.5 4.5 0 0 1 7 0"/>',cart:'<path d="M3 4h2l2.5 11h11L21 7H6.5"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/>',star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>'};
 const SV=[["app",C.rosso,"La tua app e il tuo sito","Il QR sulla maiolica apre l'app col tuo nome: Wi-Fi, porta, regole, chat. Più la tua vetrina pubblica sull'isola."],["coin",C.verde,"Servizi extra che vendi tu","Transfer, late check-out, colazione con granita, escursioni sull'Etna. Il ricavo resta a te."],["swap",C.blu,"Mai più un cliente perso","Sei pieno? Giri la richiesta alle strutture vicine con un tocco."],["people",C.rosso,"Gruppi che da solo non prendi","Matrimoni, squadre, aziende, i giorni di Sant'Agata. Ricevi la parte che puoi accogliere."],["cart",C.verde,"Acquisti da grossista","Biancheria, set di cortesia, detersivi e cialde ordinati insieme, a prezzo di gruppo."],["star",C.blu,"Personale di fiducia","Pulizie, manutentori e lavanderie valutati dagli altri host."]];
 const PANELS={
+ viaggio:()=>tripHTML(),
+ passaporto:()=>passHTML(),
  ospiti:()=>`<span class="eyebrow">Per gli ospiti</span><h2 id="m-title">L'ospite non cerca niente. Lo trova in camera.</h2>
   <div class="steps"><div class="step"><h3>Inquadra la maiolica</h3><p>Il QR è dipinto su una piastrella di ceramica, sul comodino o accanto alla porta. Nessuna app da scaricare.</p></div><div class="step"><h3>Apre la sua casa</h3><p>L'app del suo B&amp;B, con nome e colori della struttura: Wi-Fi, porta, regole, differenziata, servizi extra, chat con l'host.</p></div><div class="step"><h3>Sceglie la prossima tappa</h3><p>Dall'Etna a Ortigia, le strutture della rete con uno sconto diretto. Il viaggio resta in famiglia.</p></div></div>
   <p class="lead">Cerchi dove dormire? Ogni luce sull'isola è una struttura della rete. Scrivi direttamente all'host: niente commissioni, niente intermediari.</p>
@@ -632,14 +762,17 @@ const PANELS={
    <div class="tile" style="background:${c2};color:#1c1712"><span style="color:#1c1712">Prossima tappa</span><b>−10% nelle strutture della rete</b></div>
    <div class="tile"><span>Chat</span><b>Scrivi a ${s.host}</b></div></div></div></div></div>`;}};
 let lastFocus=null;
-function openPanel(k,arg){lastFocus=document.activeElement;$("mmenu").hidden=true;$("m-body").innerHTML=PANELS[k](arg);$("modal").hidden=false;$("modal").querySelector(".sheet").scrollTop=0;$("modal").querySelector(".x").focus();
+let curPanel=null;
+function openPanel(k,arg){$("stampup").hidden=true;$("toast").hidden=true;curPanel=k;if(k!=="viaggio"&&k!=="passaporto")lastFocus=document.activeElement;else if($("modal").hidden)lastFocus=document.activeElement;$("mmenu").hidden=true;$("m-body").innerHTML=PANELS[k](arg);$("modal").hidden=false;$("modal").querySelector(".sheet").scrollTop=0;$("modal").querySelector(".x").focus();
   if(k==="gruppi"){$("g-n").oninput=gcalc;$("g-town").onchange=gcalc;gcalc();}
   if(k==="iscriviti")$("jform").onsubmit=join;}
-function closePanel(){$("modal").hidden=true;if(lastFocus&&lastFocus.focus)lastFocus.focus();}
+function closePanel(){curPanel=null;$("modal").hidden=true;if(lastFocus&&lastFocus.focus)lastFocus.focus();}
 document.addEventListener("click",e=>{const o=e.target.closest("[data-open]");if(o){e.preventDefault();openPanel(o.dataset.open);return;}
   const a=e.target.closest("[data-app]");if(a){openPanel("app",+a.dataset.app);return;}
-  const c=e.target.closest("[data-close]");if(c){const k=c.dataset.close;if(k==="modal")closePanel();else if(k==="drawer")closeDrawer();else if(k==="card"){$("card").hidden=true;I.beam.visible=false;sel=null;}return;}
-  const ac=e.target.closest("[data-act]");if(ac){if(ac.dataset.act==="seek"){closePanel();openDrawer();}else if(ac.dataset.act==="showgroup"){closePanel();setMode("isola");I.vis.fill(0);gIds.forEach(i=>I.vis[i]=1);frameIds(gIds);$("q").value="";}}});
+  const c=e.target.closest("[data-close]");if(c){const k=c.dataset.close;if(k==="modal")closePanel();else if(k==="drawer")closeDrawer();else if(k==="card"){$("card").hidden=true;I.beam.visible=false;sel=null;I.dirty=true;}return;}
+  const ta=e.target.closest("[data-trip-add]");if(ta){tripToggle(+ta.dataset.tripAdd);return;}
+  const tr=e.target.closest("[data-tr]");if(tr){tripAction(tr.dataset.tr,+tr.dataset.i);return;}
+  const ac=e.target.closest("[data-act]");if(ac){if(ac.dataset.act==="seek"){closePanel();openDrawer();}else if(ac.dataset.act==="carretto"){closePanel();setMode("carretto");}else if(ac.dataset.act==="showgroup"){closePanel();setMode("isola");I.vis.fill(0);gIds.forEach(i=>I.vis[i]=1);frameIds(gIds);$("q").value="";}}});
 $("modal").addEventListener("click",e=>{if(e.target.id==="modal")closePanel();});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){if(!$("modal").hidden)closePanel();else if(!$("drawer").hidden)closeDrawer();else if(!$("card").hidden){$("card").hidden=true;I.beam.visible=false;}}});
 $("burger").onclick=()=>{const m=$("mmenu");m.hidden=!m.hidden;$("burger").setAttribute("aria-expanded",!m.hidden);};
@@ -711,7 +844,7 @@ const R={};
   R.car=makeCarretto();R.car.g.scale.setScalar(.075);island.add(R.car.g);R.u=0;R.target=0;R.stop=0;})();
 function routeAt(u){u=Math.max(0,Math.min(1,u));const f=u*R.N,i=Math.min(R.N-1,Math.floor(f)),t=f-i;return R.pts[i].clone().lerp(R.pts[i+1],t);}
 function placeCar(){const p=routeAt(R.u),q=routeAt(R.u+.002).sub(p);R.car.g.position.copy(p);R.car.g.rotation.y=Math.atan2(-q.z,q.x);return{p,dir:q.setY(0).normalize()};}
-function showStop(i){R.stop=i;const t=TAPPE[i];$("t-n").textContent=`TAPPA ${i+1} DI ${TAPPE.length} · ${t[2].toUpperCase()}`;$("t-h").textContent=t[3];$("t-p").textContent=t[4];
+function showStop(i){R.stop=i;if(mode==="carretto")earnStamp(i);const t=TAPPE[i];$("t-n").textContent=`TAPPA ${i+1} DI ${TAPPE.length} · ${t[2].toUpperCase()}`;$("t-h").textContent=t[3];$("t-p").textContent=t[4];
   $("t-prog").innerHTML=TAPPE.map((_,k)=>`<i class="${k<=i?"on":""}"></i>`).join("");$("t-prev").disabled=i===0;$("t-next").textContent=i===TAPPE.length-1?"Ricomincia ↺":"Avanti →";
   const x=PX(t[0]),z=PZ(t[1]),near=S.filter(s=>Math.hypot(s.x-x,s.z-z)<.9);$("t-near").textContent=`${fmt(near.length)} strutture qui intorno`;$("t-near").onclick=()=>{setMode("isola");I.vis.fill(0);near.forEach(s=>I.vis[s.id]=1);openDrawer();matched=near;shown=40;renderList();frameIds(near.map(s=>s.id));};}
 $("t-next").onclick=()=>{R.free=false;const n=R.stop+1;if(n>=TAPPE.length){R.u=0;R.target=0;showStop(0);return;}R.target=R.stops[n];showStop(n);};
@@ -837,7 +970,7 @@ function buildBorgo(){if(B.built)return;B.built=true;const sc=borgo;
 
 /* ============ Modalità ============ */
 let mode="isola",idle=0;
-const HINTS={isola:"Trascina per girare l'isola · rotella o pizzico per avvicinarti · tocca una luce: è una struttura",borgo:"Trascina per guardarti intorno · tocca il selciato per camminare · tocca una porta per entrare",carretto:"Avanti e Indietro per cambiare tappa · rotella o frecce per far camminare il cavallo"};
+const HINTS={isola:"Trascina per girare l'isola · rotella o pizzico per avvicinarti · tocca una casetta: è una struttura",borgo:"Trascina per guardarti intorno · tocca il selciato per camminare · tocca una porta per entrare",carretto:"Avanti e Indietro per cambiare tappa · rotella o frecce per far camminare il cavallo"};
 let hintT=0;
 function setMode(m){mode=m;document.querySelectorAll("[data-mode]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.mode===m));
   ctl.enabled=m==="isola";$("scroll").hidden=m!=="carretto";LB.style.display=m==="isola"?"":"none";$("tip").hidden=true;
@@ -883,7 +1016,7 @@ addEventListener("resize",()=>{renderer.setSize(innerWidth,innerHeight,false);[c
 function applyTod(){const T=todCur;
   [[I,island],[B,borgo]].forEach(([o,sc])=>{if(!o.sky)return;o.sky.u.top.value.copy(T.top);o.sky.u.hor.value.copy(T.hor);o.sky.u.sunC.value.copy(T.sunC);o.sky.u.sunDir.value.copy(T.sun);o.sky.stars.material.opacity=T.stars;
     o.sun.color.copy(T.light);o.sun.intensity=T.li;o.sun.position.copy(T.sun).multiplyScalar(50);o.hemi.color.copy(T.hemiS);o.hemi.groundColor.copy(T.hemiG);o.hemi.intensity=T.hi;sc.fog.color.copy(T.fog);});
-  I.seaM.color.copy(T.sea);I.mk.material.color.setScalar(T.mk);I.houses.material.emissiveIntensity=T.win*.35;I.crater.material.color.setRGB(1*T.glow*.8+.3,.35*T.glow*.6+.1,.12);
+  I.seaM.color.copy(T.sea);I.mk.material.emissiveIntensity=T.win*.32;I.houses.material.emissiveIntensity=T.win*.35;I.crater.material.color.setRGB(1*T.glow*.8+.3,.35*T.glow*.6+.1,.12);
   I.routeMat.opacity=mode==="carretto"?.95:.55;
   if(B.built){B.sea.material.color.copy(T.sea);B.bulbMat.color.setScalar(T.bulb);B.winLit.emissiveIntensity=T.win*.9;B.pl.forEach(l=>l.intensity=T.win*1.6);}
   if(bloom){bloom.strength=T.bS*(mode==="borgo"?1.1:1);bloom.threshold=T.bT;if(bloom.highPassUniforms)bloom.highPassUniforms.luminosityThreshold.value=T.bT;}}
@@ -895,11 +1028,11 @@ function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;tAll+=dt;idl
   todStep(dt);applyTod();I.seaT.value=tAll;fwStep(dt);
   hintT+=dt;if(hintT>7)$("hint").style.opacity=0;
   if(mode==="isola"||mode==="carretto"){
-    // luci delle strutture
-    const dm=I.dm,night=todKey==="notte";for(let i=0;i<S.length;i++){const s=S[i];dm.position.set(s.x,s.y+(STILL?0:Math.sin(tAll*1.6+i)*.008),s.z);dm.rotation.set(0,STILL?0:tAll*.8+i,0);
-      const sc=I.vis[i]?(sel&&sel.id===i?1.8:1)*(night&&!STILL?.85+.25*Math.sin(tAll*3+i*1.7):1):0;dm.scale.setScalar(sc);dm.updateMatrix();I.mk.setMatrixAt(i,dm.matrix);}
-    I.mk.instanceMatrix.needsUpdate=true;
-    if(I.beam.visible){I.ring.scale.setScalar(1+.25*Math.sin(tAll*4));}
+    // casette delle strutture: si ricalcolano solo se cambia qualcosa
+    const camD=mode==="carretto"?1.2:camI.position.distanceTo(ctl.target),nf=Math.max(1,Math.min(3.2,camD/4.5));
+    if(Math.abs(nf-I.f)/I.f>.06){I.f=nf;I.dirty=true;}
+    if(I.dirty)updateHouses();
+    if(I.beam.visible){I.beam.scale.setScalar(I.f*(sel&&tripHas(sel.id)?1.15:1));I.ring.rotation.y=STILL?0:Math.sin(tAll*2.2)*.35;}
     smokeStep(I.smoke,sp=>sp.userData.src==="e"?I.crater.position:I.strom.position,dt,.55);
     // carretto
     const prev=R.u;R.u+=(R.target-R.u)*Math.min(1,dt*(STILL?30:1.6));if(Math.abs(R.target-R.u)<1e-5)R.u=R.target;const{p,dir}=placeCar();const mv=Math.abs(R.u-prev)*R.len;
@@ -910,6 +1043,7 @@ function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;tAll+=dt;idl
     else{if(!STILL&&idle>9&&!tweens.length){ctl.autoRotate=true;ctl.autoRotateSpeed=.35;}else ctl.autoRotate=false;ctl.update();}
     I.sky.mesh.position.copy(camI.position);I.sky.stars.position.copy(camI.position);
     // etichette
+    TL.forEach(e=>{const s=S[+e.dataset.id];v3.set(s.x,s.g+.035*I.f,s.z).project(camI);const on=mode==="isola"&&v3.z<1&&Math.abs(v3.x)<1.05&&Math.abs(v3.y)<1.05;e.style.opacity=on?1:0;if(on)e.style.transform=`translate(${((v3.x*.5+.5)*innerWidth).toFixed(1)}px,${((-v3.y*.5+.5)*innerHeight).toFixed(1)}px)`;});
     if(mode==="isola"){const dist=camI.position.distanceTo(ctl.target);TOWNS.forEach(t=>{if(!t.el)return;v3.set(t.x,t.y,t.z).project(camI);const on=v3.z<1&&Math.abs(v3.x)<1.05&&Math.abs(v3.y)<1.05&&(t.w>=110||dist<14);
       t.el.style.opacity=on?1:0;t.el.style.pointerEvents=on?"auto":"none";if(on)t.el.style.transform=`translate(${((v3.x*.5+.5)*innerWidth).toFixed(1)}px,${((-v3.y*.5+.5)*innerHeight).toFixed(1)}px) translate(-50%,-100%)`;});}
     if(composer)composer.render();else renderer.render(island,camI);}
@@ -927,7 +1061,7 @@ function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;tAll+=dt;idl
   requestAnimationFrame(frame);}
 
 /* ============ Avvio ============ */
-applyFilter();setTod("tramonto");todT=1;todSnap(todCur,TOD.tramonto);
+applyFilter();tripSave();setTod("tramonto");todT=1;todSnap(todCur,TOD.tramonto);
 $("load").textContent=`${fmt(S.length)} strutture accese sull'isola`;
 const startMode=(location.hash||"").replace("#","");
 READY=true;window.__start=()=>{if(["borgo","carretto"].includes(startMode))setMode(startMode);else{setMode("isola");tween(STILL?.01:3.6,e=>{camI.position.lerpVectors(new THREE.Vector3(0,60,64),new THREE.Vector3(2.5,13,17),e);});}canvas.focus();};
