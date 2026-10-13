@@ -118,7 +118,7 @@ h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.05;text-
 .empty{padding:24px 12px;text-align:center;color:var(--muted)}
 
 /* Pergamena del carretto */
-.scroll{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);transform:translateX(-50%);z-index:22;width:min(620px,calc(100vw - 32px));overflow:hidden}
+.scroll{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 84px);transform:translateX(-50%);z-index:22;width:min(620px,calc(100vw - 32px));overflow:hidden}
 .scroll .in{padding:16px 20px 18px;display:grid;gap:8px}
 .scroll .top2{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
 .scroll .n{font-family:var(--mono);font-size:.74rem;color:var(--rosso);letter-spacing:.08em}
@@ -198,24 +198,38 @@ h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.05;text-
 .scr .tile b{font-size:.9rem}
 .scr .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 
-@media (max-width:860px){
+@media (max-width:1180px){
   .menu .lnk,.menu .btn{display:none}
   .burger{display:block}
-  .modes{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 72px)}
-  .modes button span{display:none}
-  .modes button{padding:9px 14px}
+}
+@media (max-width:860px){
+  .top{padding:calc(env(safe-area-inset-top,0px) + 10px) 12px 0}
+  .brand{font-size:1.5rem}
+  .modes{position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 12px);margin:0;justify-content:space-between}
+  .modes button{flex:1;justify-content:center;padding:9px 6px;font-size:.8rem;gap:5px}
+  .dock{left:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 70px);gap:6px}
+  .tod button{width:34px;height:32px}
+  .fire{padding:8px 11px}
+  .fire span{display:none}
+  .seek{right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 70px);padding:9px 14px;gap:8px}
+  .seek b{font-size:1.05rem}
+  .seek small{display:none}
+  .seek svg{width:20px;height:20px}
+  .hint{top:calc(env(safe-area-inset-top,0px) + 62px);bottom:auto;font-size:.76rem}
+  .card{bottom:calc(env(safe-area-inset-bottom,0px) + 122px)}
+  .scroll{bottom:calc(env(safe-area-inset-bottom,0px) + 122px)}
+  .scroll .in{padding:12px 14px 14px;gap:6px}
+  .scroll h3{font-size:1.35rem}
+  .scroll p{font-size:.88rem}
+  .scroll .acts .btn{padding:8px 12px;font-size:.85rem}
+  .drawer{left:12px;right:12px;width:auto;top:calc(env(safe-area-inset-top,0px) + 60px);bottom:calc(env(safe-area-inset-bottom,0px) + 12px);z-index:30}
+  .mmenu{right:12px;top:calc(env(safe-area-inset-top,0px) + 58px)}
   .steps,.svcs{grid-template-columns:minmax(0,1fr)}
   .gcalc,.join,.phonewrap{grid-template-columns:minmax(0,1fr)}
-  .drawer{left:16px;right:16px;width:auto;top:auto;height:72%}
-  .card{bottom:calc(env(safe-area-inset-bottom,0px) + 130px)}
-  .scroll{bottom:calc(env(safe-area-inset-bottom,0px) + 124px)}
-  .hint{bottom:calc(env(safe-area-inset-bottom,0px) + 124px)}
-  .seek small{display:none}
-  .seek{padding:10px 14px}
-  .fire span{display:none}
   .sheet .in{padding:22px 18px 24px}
   .price{grid-template-columns:minmax(0,1fr)}
 }
+@media (max-width:380px){.modes button span{display:none}.seek b{font-size:.95rem}}
 .mmenu{position:fixed;right:16px;top:calc(env(safe-area-inset-top,0px) + 64px);z-index:26;display:grid;gap:4px;padding:10px;min-width:220px}
 .mmenu button,.mmenu a{border:0;background:none;text-align:left;padding:10px 12px;border-radius:6px;font-weight:600;cursor:pointer;text-decoration:none;color:var(--ink)}
 .mmenu button:hover,.mmenu a:hover{background:var(--carta2)}
