@@ -169,6 +169,15 @@ h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.05;text-
 .scroll .top2{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
 .scroll .n{font-family:var(--mono);font-size:.74rem;color:var(--rosso);letter-spacing:.08em}
 .scroll h3{font-size:1.5rem}
+.scroll{background:rgba(246,239,224,.9);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.scroll .top2{align-items:center}
+.scroll .mini{flex:none;border:1.5px solid var(--line);background:var(--carta2);border-radius:6px;width:32px;height:28px;cursor:pointer;font-size:1rem;line-height:1;color:var(--ink)}
+.scroll.min .in{padding:10px 12px;gap:8px}
+.scroll.min h3,.scroll.min p,.scroll.min .km,.scroll.min .night,.scroll.min .sleep,.scroll.min #t-near,.scroll.min #t-trip,.scroll.min .prog,.scroll.min .fascia{display:none!important}
+.scroll.min .top2{order:0}
+.scroll.min .acts{margin-top:0}
+.scroll.min .in{grid-template-columns:minmax(0,1fr) auto;align-items:center}
+.scroll.min .acts .btn{padding:7px 12px;font-size:.85rem}
 .scroll .km{font-family:var(--mono);font-size:.76rem;color:var(--ink);display:flex;gap:12px;flex-wrap:wrap}
 .scroll .km span{color:var(--muted)}
 .scroll .night{font-size:.88rem;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
@@ -370,7 +379,7 @@ h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.05;text-
 <div class="scroll paper" id="scroll" hidden>
   <div class="fascia"></div>
   <div class="in">
-    <div class="top2"><span class="n" id="t-n"></span><div class="prog" id="t-prog" style="flex:1;max-width:220px"></div></div>
+    <div class="top2"><span class="n" id="t-n"></span><div class="prog" id="t-prog" style="flex:1;max-width:220px"></div><button class="mini" type="button" id="t-min" aria-label="Riduci il pannello" aria-expanded="true">▾</button></div>
     <h3 id="t-h"></h3>
     <p id="t-p"></p>
     <div class="km" id="t-km"></div>
@@ -639,7 +648,7 @@ const I={};
 
 /* ============ Etichette dei paesi ============ */
 const LB=$("labels");
-TOWNS.forEach(t=>{t.y=Math.max(0,H(t.x,t.z))+.12;if(t.w<40)return;const b=document.createElement("button");b.className="lbl";b.type="button";b.innerHTML=`${t.n}<i>${fmt(t.ids.length)}</i>`;b.onclick=()=>{openDrawer();$("q").value=t.n;applyFilter();flyTo(new THREE.Vector3(t.x,t.y,t.z),t.w>200?3.2:2.4);};LB.appendChild(b);t.el=b;});
+TOWNS.forEach(t=>{t.y=Math.max(0,H(t.x,t.z))+.12;if(t.w<40)return;const b=document.createElement("button");b.className="lbl";b.type="button";b.innerHTML=`${t.n}<i>${fmt(t.ids.length)}</i>`;b.onclick=()=>{openDrawer();$("q").value=t.n;applyFilter();flyTo(new THREE.Vector3(t.x,t.y,t.z),t.w>200?5:4);};LB.appendChild(b);t.el=b;});
 
 /* ============ Controlli volo ============ */
 const ctl=new THREE.OrbitControls(camI,canvas);
@@ -667,13 +676,13 @@ $("q").addEventListener("input",applyFilter);$("f-prov").onchange=applyFilter;$(
 $("f-type").onclick=e=>{const b=e.target.closest("button");if(!b)return;F.type=b.dataset.t;[...$("f-type").children].forEach(x=>x.setAttribute("aria-pressed",x===b));applyFilter();};
 $("frame-btn").onclick=()=>{if(mode!=="isola")setMode("isola");frameIds(matched.map(s=>s.id));if(innerWidth<860)closeDrawer();};
 function frameIds(ids){if(!ids.length)return;let x0=1e9,x1=-1e9,z0=1e9,z1=-1e9;ids.forEach(i=>{const s=S[i];x0=Math.min(x0,s.x);x1=Math.max(x1,s.x);z0=Math.min(z0,s.z);z1=Math.max(z1,s.z);});
-  const span=Math.max(x1-x0,z1-z0);flyTo(new THREE.Vector3((x0+x1)/2,.2,(z0+z1)/2),Math.max(2.2,Math.min(38,span*1.5+1.6)));}
+  const span=Math.max(x1-x0,z1-z0);flyTo(new THREE.Vector3((x0+x1)/2,.2,(z0+z1)/2),Math.max(3.5,Math.min(40,span*1.7+2.5)));}
 function openDrawer(){$("drawer").hidden=false;$("mmenu").hidden=true;}
 function closeDrawer(){$("drawer").hidden=true;}
 $("seek").onclick=()=>{$("drawer").hidden?openDrawer():closeDrawer();};
 
 function selectS(id,fly){const s=S[id];sel=s;I.dirty=true;if(mode!=="isola")setMode("isola");I.beam.visible=true;I.beam.position.set(s.x,s.g,s.z);I.flagM.map=I.tileTex(s.tp);I.flagM.needsUpdate=true;
-  if(fly)flyTo(new THREE.Vector3(s.x,s.y,s.z),1.5);if(innerWidth<860)closeDrawer();
+  if(fly)flyTo(new THREE.Vector3(s.x,s.y,s.z),2.8);if(innerWidth<860)closeDrawer();
   $("card").hidden=false;$("card").innerHTML=`<div class="fascia"></div><div class="in"><div class="hd"><span class="sw" style="background-image:url(${tileURL(s.tp)})"></span><div style="min-width:0"><h3>${s.n}</h3><div class="sub">${s.type} · ${s.town} (${s.prov})</div></div><button class="x" type="button" data-close="card" aria-label="Chiudi">×</button></div>
     <div class="facts"><span><b>${s.beds}</b> posti letto</span><span>da <b>${s.price} €</b> a notte</span><span>host <b>${s.host}</b></span></div>
     <div class="tags">${s.free?'<span class="tag free">Libera stanotte</span>':""}${s.serv.map(v=>`<span class="tag">${v}</span>`).join("")}</div>
@@ -844,7 +853,7 @@ const R={};
   R.len=R.curve.getLength();R.stops=TAPPE.map(t=>{const x=PX(t[0]),z=PZ(t[1]);let bi=0,bd=1e9;R.pts.forEach((p,i)=>{const d=(p.x-x)**2+(p.z-z)**2;if(d<bd){bd=d;bi=i;}});return bi/R.N;});
   const c3=new THREE.CatmullRomCurve3(R.pts.filter((p,i)=>i%2===0));const tube=new THREE.TubeGeometry(c3,1400,.012,4,false);I.routeMat.map.repeat.set(R.len*6,1);
   R.mesh=new THREE.Mesh(tube,I.routeMat);island.add(R.mesh);
-  R.car=makeCarretto();R.car.g.scale.setScalar(.075);island.add(R.car.g);R.u=0;R.target=0;R.stop=0;})();
+  R.car=makeCarretto();R.car.g.scale.setScalar(.12);island.add(R.car.g);const halo=new THREE.Mesh(new THREE.RingGeometry(1.6,2.1,40),new THREE.MeshBasicMaterial({color:0xf2b705,side:THREE.DoubleSide,transparent:true,opacity:.85}));halo.rotation.x=-Math.PI/2;halo.position.set(1,.05,0);R.car.g.add(halo);R.u=0;R.target=0;R.stop=0;})();
 function routeAt(u){u=Math.max(0,Math.min(1,u));const f=u*R.N,i=Math.min(R.N-1,Math.floor(f)),t=f-i;return R.pts[i].clone().lerp(R.pts[i+1],t);}
 function placeCar(){const p=routeAt(R.u),q=routeAt(R.u+.002).sub(p);R.car.g.position.copy(p);R.car.g.rotation.y=Math.atan2(-q.z,q.x);return{p,dir:q.setY(0).normalize()};}
 function stopNear(i){const t=TAPPE[i],x=PX(t[0]),z=PZ(t[1]);return S.filter(s=>Math.hypot(s.x-x,s.z-z)<.6);}
@@ -861,6 +870,8 @@ function showStop(i){R.stop=i;const t=TAPPE[i];$("t-n").textContent=`TAPPA ${i+1
   if(i>0){const km=KM(stopPt(i-1),stopPt(i)),min=Math.round(km*1.1/5)*5;$("t-km").innerHTML=`<b>${km} km</b><span>da ${TAPPE[i-1][2]}</span><b>~${min<60?min+" min":Math.floor(min/60)+" h "+(min%60?min%60+" min":"")}</b><span>in auto</span>`;}else $("t-km").innerHTML=`<span>Punto di partenza del giro</span>`;
   $("t-sleep").hidden=true;renderSleep(i);}
 $("t-near").onclick=()=>{$("t-sleep").hidden=!$("t-sleep").hidden;};
+function setMin(on){$("scroll").classList.toggle("min",on);$("t-min").textContent=on?"▴":"▾";$("t-min").setAttribute("aria-expanded",!on);$("t-min").setAttribute("aria-label",on?"Apri il pannello":"Riduci il pannello");}
+$("t-min").onclick=()=>setMin(!$("scroll").classList.contains("min"));
 $("t-sleep").addEventListener("click",e=>{const b=e.target.closest("[data-sleep]");if(!b)return;const id=+b.dataset.sleep,i=R.stop,old=stopChoice(i);
   if(old&&old.id===id)return;if(old)trip=trip.filter(t=>t!==old);
   trip=trip.filter(t=>t.id!==id);trip.push({id,n:1,stop:i});trip.sort((a,b)=>(a.stop??99)-(b.stop??99));
@@ -988,7 +999,7 @@ function buildBorgo(){if(B.built)return;B.built=true;const sc=borgo;
 
 /* ============ Modalità ============ */
 let mode="isola",idle=0;
-const HINTS={_:0,isola:"Trascina per girare l'isola · rotella o pizzico per avvicinarti · tocca una casetta: è una struttura",borgo:"Trascina per guardarti intorno · tocca il selciato per camminare · tocca una porta per entrare",carretto:"A ogni tappa scegli dove dormire · Avanti per proseguire il giro"};
+const HINTS={_:0,isola:"Trascina per girare l'isola · rotella o pizzico per avvicinarti · tocca una casetta: è una struttura",borgo:"Trascina per guardarti intorno · tocca il selciato per camminare · tocca una porta per entrare",carretto:"Tocca ▴ per vedere la tappa e dove dormire · Avanti per proseguire il giro"};
 let hintT=0;
 function setMode(m){mode=m;document.querySelectorAll("[data-mode]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.mode===m));
   ctl.enabled=m==="isola";$("scroll").hidden=m!=="carretto";LB.style.display=m==="isola"?"":"none";$("tip").hidden=true;
@@ -996,7 +1007,7 @@ function setMode(m){mode=m;document.querySelectorAll("[data-mode]").forEach(b=>b
   if(m==="borgo")buildBorgo();
   if(renderPass){renderPass.scene=m==="borgo"?borgo:island;renderPass.camera=m==="borgo"?camB:camI;}
   if(m==="carretto"&&innerWidth<860)camI.setViewOffset(innerWidth,innerHeight,0,Math.round(innerHeight*.2),innerWidth,innerHeight);else camI.clearViewOffset();
-  if(m==="carretto"){R.u=R.stops[R.stop];R.target=R.u;showStop(R.stop);const{p,dir}=placeCar();camI.position.copy(p).addScaledVector(dir,-1.2).add(new THREE.Vector3(0,.6,0));}
+  if(m==="carretto"){setMin(innerWidth<860);R.u=R.stops[R.stop];R.target=R.u;showStop(R.stop);const{p,dir}=placeCar();camI.position.copy(p).addScaledVector(dir,-3).add(new THREE.Vector3(0,3.4,0));}
   if(m==="isola"&&prevMode==="carretto"){ctl.target.copy(R.car.g.position);}
   prevMode=m;$("hint").textContent=HINTS[m];$("hint").style.opacity=1;hintT=0;
   try{history.replaceState(null,"","#"+m);}catch(_){}}
@@ -1048,7 +1059,7 @@ function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;tAll+=dt;idl
   hintT+=dt;if(hintT>7)$("hint").style.opacity=0;
   if(mode==="isola"||mode==="carretto"){
     // casette delle strutture: si ricalcolano solo se cambia qualcosa
-    const camD=mode==="carretto"?1.2:camI.position.distanceTo(ctl.target),nf=Math.max(1,Math.min(3.2,camD/4.5));
+    const camD=mode==="carretto"?8:camI.position.distanceTo(ctl.target),nf=Math.max(1,Math.min(3.2,camD/4.5));
     if(Math.abs(nf-I.f)/I.f>.06){I.f=nf;I.dirty=true;}
     if(I.dirty)updateHouses();
     if(I.beam.visible){I.beam.scale.setScalar(I.f*(sel&&tripHas(sel.id)?1.15:1));I.ring.rotation.y=STILL?0:Math.sin(tAll*2.2)*.35;}
@@ -1056,8 +1067,8 @@ function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;tAll+=dt;idl
     // carretto
     const prev=R.u;R.u+=(R.target-R.u)*Math.min(1,dt*(STILL?30:1.6));if(Math.abs(R.target-R.u)<1e-5)R.u=R.target;const{p,dir}=placeCar();const mv=Math.abs(R.u-prev)*R.len;
     R.car.wheels.forEach(w=>w.rotation.y-=mv/.054);R.car.legs.forEach((l,k)=>l.rotation.z=mv>1e-5?Math.sin(tAll*14+k*Math.PI/2)*.5:0);
-    if(mode==="carretto"){const side=new THREE.Vector3(-dir.z,0,dir.x);const want=p.clone().addScaledVector(dir,-.95).addScaledVector(side,.35).add(new THREE.Vector3(0,.5,0));
-      camI.position.lerp(want,Math.min(1,dt*2.5));camI.lookAt(p.clone().addScaledVector(dir,.6).add(new THREE.Vector3(0,.05,0)));
+    if(mode==="carretto"){const side=new THREE.Vector3(-dir.z,0,dir.x);R.cd=(R.cd||dir.clone()).lerp(dir,Math.min(1,dt*.8)).normalize();const want=p.clone().addScaledVector(R.cd,-2.6).addScaledVector(side,.6).add(new THREE.Vector3(0,3.2,0));
+      camI.position.lerp(want,Math.min(1,dt*2));camI.lookAt(p.clone().addScaledVector(R.cd,.9));
       let ni=0,nd=1e9;R.stops.forEach((u,i)=>{const d=Math.abs(u-R.u);if(d<nd){nd=d;ni=i;}});if(R.free&&ni!==R.stop&&nd<.01)showStop(ni);}
     else{if(!STILL&&idle>9&&!tweens.length){ctl.autoRotate=true;ctl.autoRotateSpeed=.35;}else ctl.autoRotate=false;ctl.update();}
     I.sky.mesh.position.copy(camI.position);I.sky.stars.position.copy(camI.position);
@@ -1083,7 +1094,7 @@ function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;tAll+=dt;idl
 applyFilter();tripSave();setTod("tramonto");todT=1;todSnap(todCur,TOD.tramonto);
 $("load").textContent=`${fmt(S.length)} strutture accese sull'isola`;
 const startMode=(location.hash||"").replace("#","");
-READY=true;window.__start=()=>{if(["borgo","carretto"].includes(startMode))setMode(startMode);else{setMode("isola");tween(STILL?.01:3.6,e=>{camI.position.lerpVectors(new THREE.Vector3(0,60,64),new THREE.Vector3(2.5,13,17),e);});}canvas.focus();};
+READY=true;window.__start=()=>{if(["borgo","carretto"].includes(startMode))setMode(startMode);else{setMode("isola");tween(STILL?.01:3.6,e=>{camI.position.lerpVectors(new THREE.Vector3(0,60,64),new THREE.Vector3(2,21,27),e);});}canvas.focus();};
 requestAnimationFrame(frame);
 </script>
 
