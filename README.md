@@ -2,6 +2,8 @@
 
 Rete di B&B, case vacanza e affittacamere siciliani. *Arrivi ospite, riparti di casa.*
 
+Online: **https://fondaco-sicilia.netlify.app**
+
 Prototipo statico, nessuna build necessaria.
 
 | Percorso | Cosa contiene |
