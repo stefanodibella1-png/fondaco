@@ -168,8 +168,22 @@ h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.05;text-
 .scroll .in{padding:16px 20px 18px;display:grid;gap:8px}
 .scroll .top2{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
 .scroll .n{font-family:var(--mono);font-size:.74rem;color:var(--rosso);letter-spacing:.08em}
-.scroll h3{font-size:1.75rem}
-.scroll p{margin:0;color:var(--muted);max-width:62ch}
+.scroll h3{font-size:1.5rem}
+.scroll .km{font-family:var(--mono);font-size:.76rem;color:var(--ink);display:flex;gap:12px;flex-wrap:wrap}
+.scroll .km span{color:var(--muted)}
+.scroll .night{font-size:.88rem;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.scroll .night:empty{display:none}
+.scroll .night .sw{width:28px;height:28px}
+.scroll .night b{font-weight:700}
+.scroll .night button{border:0;background:none;color:var(--rosso);font-weight:700;cursor:pointer;padding:2px 4px;font-size:.84rem}
+.sleep{display:grid;gap:6px;max-height:34vh;overflow:auto}
+.sopt{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:10px;align-items:center;background:var(--carta2);border:1px solid var(--line);border-radius:8px;padding:7px 9px}
+.sopt .sw{width:36px;height:36px}
+.sopt b{display:block;font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sopt small{color:var(--muted);font-size:.76rem}
+.sopt .btn{padding:7px 11px;font-size:.84rem}
+.sopt.on{border-color:var(--verde);box-shadow:inset 3px 0 0 var(--verde)}
+.scroll p{margin:0;color:var(--muted);max-width:62ch;font-size:.92rem}
 .prog{display:flex;gap:4px}
 .prog i{flex:1;height:5px;border-radius:3px;background:var(--line)}
 .prog i.on{background:var(--rosso)}
@@ -266,7 +280,11 @@ h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.05;text-
   .scroll{bottom:calc(env(safe-area-inset-bottom,0px) + 122px)}
   .scroll .in{padding:12px 14px 14px;gap:6px}
   .scroll h3{font-size:1.35rem}
-  .scroll p{font-size:.88rem}
+  .scroll p{font-size:.84rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .scroll .prog{display:none}
+  #t-trip{display:none}
+  .scroll .km{font-size:.72rem}
+  .sleep{max-height:28vh}
   .scroll .acts .btn{padding:8px 12px;font-size:.85rem}
   .trip-btn{margin-left:auto;padding:8px 10px}
   .trip-btn span{display:none}
@@ -315,7 +333,6 @@ h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.05;text-
   <button type="button" data-open="ospiti">Per gli ospiti</button>
   <button type="button" data-open="host">Per gli host</button>
   <button type="button" data-open="gruppi">Gruppi</button>
-  <button type="button" data-open="passaporto">Passaporto del viaggiatore</button>
   <button type="button" data-open="iscriviti">Iscrivi la struttura</button>
   <a class="cc-link" href="#" target="_blank" rel="noopener">Area host ↗</a>
 </div>
@@ -331,7 +348,7 @@ h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.05;text-
 <button class="seek" type="button" id="seek"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span><b>Cerca una struttura</b><small id="seek-n">tra le strutture della rete</small></span></button>
 <div class="hint" id="hint"></div>
 <div class="toast" id="toast" hidden></div>
-<div class="stampup paper" id="stampup" hidden></div>
+
 
 <div class="card paper" id="card" hidden></div>
 
@@ -356,7 +373,10 @@ h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.05;text-
     <div class="top2"><span class="n" id="t-n"></span><div class="prog" id="t-prog" style="flex:1;max-width:220px"></div></div>
     <h3 id="t-h"></h3>
     <p id="t-p"></p>
-    <div class="acts"><button class="btn line" type="button" id="t-prev">← Indietro</button><button class="btn red" type="button" id="t-next">Avanti →</button><button class="btn yel" type="button" id="t-near"></button></div>
+    <div class="km" id="t-km"></div>
+    <div class="night" id="t-night"></div>
+    <div class="sleep" id="t-sleep" hidden></div>
+    <div class="acts"><button class="btn line" type="button" id="t-prev" aria-label="Tappa precedente">←</button><button class="btn red" type="button" id="t-next">Avanti →</button><button class="btn yel" type="button" id="t-near"></button><button class="btn line" type="button" data-open="viaggio" id="t-trip"></button></div>
   </div>
 </div>
 
@@ -661,10 +681,9 @@ function selectS(id,fly){const s=S[id];sel=s;I.dirty=true;if(mode!=="isola")setM
     <div class="note" id="msg-n">Prenoti direttamente con l'host: Fondaco non prende commissioni.</div></div>`;
   $("msg").onclick=()=>{$("msg-n").textContent=`Nel sito vero si apre la chat con ${s.host}. In questo prototipo nessun messaggio viene inviato.`;};}
 
-/* ============ Casette, viaggio, passaporto ============ */
+/* ============ Casette e viaggio ============ */
 const LS={get(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v;}catch(_){return d;}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(_){}}};
 let trip=LS.get("fondaco-viaggio",[]).filter(t=>S[t.id]);
-let stamps=new Set(LS.get("fondaco-timbri",[]));
 const tripHas=id=>trip.some(t=>t.id===id);
 function updateHouses(){const dm=I.dm,f=I.f;
   for(let i=0;i<S.length;i++){const s=S[i];const k=I.vis[i]?f*(sel&&sel.id===i?1.6:tripHas(i)?1.3:1):0;
@@ -677,10 +696,10 @@ function tripSave(){LS.set("fondaco-viaggio",trip);const n=$("trip-n");n.textCon
 function tripToggle(id){if(tripHas(id)){trip=trip.filter(t=>t.id!==id);toast("Tolta dal viaggio");}else{trip.push({id,n:2});toast(`${S[id].n} è la tappa ${trip.length} del tuo viaggio`);}
   tripSave();const b=document.querySelector(`[data-trip-add="${id}"]`);if(b)b.textContent=tripHas(id)?"Nel tuo viaggio ✓":"+ Aggiungi al viaggio";if(curPanel==="viaggio")$("m-body").innerHTML=tripHTML();}
 function tripTotals(){let nights=0,cost=0,save=0,km=0;trip.forEach((t,i)=>{const s=S[t.id],c=s.price*t.n;nights+=t.n;cost+=c;if(i>0){save+=Math.round(c*DISC/100);km+=KM(S[trip[i-1].id],s);}});return{nights,cost:cost-save,save,km};}
-function tripHTML(){const tabs=`<div class="tabs2"><button type="button" data-open="viaggio" aria-pressed="true">Il mio viaggio</button><button type="button" data-open="passaporto" aria-pressed="false">Passaporto · ${stamps.size}/${TAPPE.length}</button></div>`;
+function tripHTML(){const tabs="";
   if(!trip.length)return `${tabs}<span class="eyebrow">Il mio viaggio</span><h2 id="m-title">Componi il tuo giro di Sicilia.</h2>
-    <p class="lead">Tocca una casetta sull'isola e scegli "Aggiungi al viaggio". Ogni struttura diventa una tappa: vedi notti, chilometri e quanto risparmi con lo sconto della rete dalla seconda tappa in poi.</p>
-    <div class="acts2"><button class="btn red" type="button" data-tr="suggest">Suggeriscimi un giro</button><button class="btn line" type="button" data-act="seek">Cerca una struttura</button></div>`;
+    <p class="lead">Fai il giro in carretto e a ogni tappa scegli dove dormire, oppure tocca una casetta sull'isola e "Aggiungi al viaggio". Alla fine mandi una sola richiesta a tutti gli host, e dalla seconda tappa hai lo sconto della rete.</p>
+    <div class="acts2"><button class="btn red" type="button" data-act="carretto">Fai il giro in carretto</button><button class="btn line" type="button" data-tr="suggest">Suggeriscimi un giro</button><button class="btn line" type="button" data-act="seek">Cerca una struttura</button></div>`;
   const T=tripTotals();let h="";
   trip.forEach((t,i)=>{const s=S[t.id];if(i>0)h+=`<div class="road2">${KM(S[trip[i-1].id],s)} km circa · ${S[trip[i-1].id].town} → ${s.town}</div>`;
     h+=`<div class="leg"><span class="num">${i+1}</span><span class="sw" style="background-image:url(${tileURL(s.tp)})"></span><span style="min-width:0"><b>${s.n}</b><small>${s.type} · ${s.town} · host ${s.host}</small><small>${s.price} € a notte${i>0?` · <span class="disc">−${DISC}% rete</span>`:""}</small></span>
@@ -699,7 +718,7 @@ function tripAction(a,i){
   else if(a==="rm")trip.splice(i,1);
   else if(a==="clear")trip=[];
   else if(a==="sort"&&trip.length>2){const rest=trip.slice(1),out=[trip[0]];while(rest.length){const l=S[out[out.length-1].id];let bi=0,bd=1e9;rest.forEach((t,k)=>{const d=Math.hypot(S[t.id].x-l.x,S[t.id].z-l.z);if(d<bd){bd=d;bi=k;}});out.push(rest.splice(bi,1)[0]);}trip=out;}
-  else if(a==="suggest"){trip=[["Catania",2],["Taormina",2],["Siracusa",2],["Noto",1]].map(([tn,n])=>{const t=TOWNS.find(x=>x.n===tn);const c=t.ids.map(id=>S[id]).filter(s=>s.free&&s.beds>=2).sort((a,b)=>a.price-b.price)[0]||S[t.ids[0]];return{id:c.id,n};});toast("Ecco un giro di 7 notti sul lato dell'Etna");}
+  else if(a==="suggest"){trip=[[0,2],[4,2],[5,2],[6,1]].map(([k,n])=>{const c=stopNear(k).filter(s=>s.free&&s.beds>=2).sort((a,b)=>a.price-b.price)[0]||stopNear(k)[0];return{id:c.id,n,stop:k};});toast("Ecco un giro di 7 notti sul lato dell'Etna");}
   else if(a==="show"){closePanel();if(mode!=="isola")setMode("isola");drawTrip();frameIds(trip.map(t=>t.id));return;}
   else if(a==="send"){$("tr-note").textContent=`Richiesta pronta per ${trip.length} host, con le notti di ogni tappa. Prototipo: nessun messaggio viene inviato.`;return;}
   tripSave();$("m-body").innerHTML=tripHTML();}
@@ -711,27 +730,11 @@ function drawTrip(){if(I.tripMesh){island.remove(I.tripMesh);I.tripMesh.geometry
   for(let i=1;i<trip.length;i++){const a=S[trip[i-1].id],b=S[trip[i].id],d=Math.hypot(a.x-b.x,a.z-b.z);
     for(let k=(i===1?0:1);k<=24;k++){const t=k/24;pts.push(new THREE.Vector3(a.x+(b.x-a.x)*t,a.g+(b.g-a.g)*t+Math.sin(t*Math.PI)*(.08+d*.12),a.z+(b.z-a.z)*t));}}
   I.tripMesh=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),pts.length*2,.008,6,false),new THREE.MeshBasicMaterial({color:0xf2b705}));island.add(I.tripMesh);}
-function stampStyle(i){return `background-image:url(${tileURL(i*3+1)})`;}
-function earnStamp(i){if(stamps.has(i))return;stamps.add(i);LS.set("fondaco-timbri",[...stamps]);
-  const all=stamps.size===TAPPE.length,el=$("stampup");
-  el.innerHTML=`<span class="st anim" style="${stampStyle(i)}"></span><span style="min-width:0"><b>${all?"Carrettiere di Sicilia!":"Timbro: "+TAPPE[i][2]}</b><small>${stamps.size} di ${TAPPE.length} tappe della trazzera</small></span><button type="button" data-open="passaporto">Passaporto</button>`;
-  el.hidden=false;clearTimeout(el._t);el._t=setTimeout(()=>el.hidden=true,all?6000:3200);
-  if(all&&R.car)for(let k=0;k<8;k++)setTimeout(()=>burst(island,R.car.g.position.clone().add(new THREE.Vector3((rnd()-.5)*.6,.35+rnd()*.3,(rnd()-.5)*.6)),.18),k*300);}
-function passHTML(){const n=stamps.size,all=n===TAPPE.length;
-  return `<div class="tabs2"><button type="button" data-open="viaggio" aria-pressed="false">Il mio viaggio${trip.length?` · ${trip.length}`:""}</button><button type="button" data-open="passaporto" aria-pressed="true">Passaporto · ${n}/${TAPPE.length}</button></div>
-   <span class="eyebrow">Passaporto del viaggiatore</span><h2 id="m-title">${all?"Hai percorso tutta la trazzera.":`${n} timbri su ${TAPPE.length}.`}</h2>
-   <div class="meter" aria-hidden="true"><i style="width:${n/TAPPE.length*100}%"></i></div>
-   ${all?`<div class="badge"><span class="st" style="width:58px;height:58px;flex:none;${stampStyle(0)}"></span><span><b>Carrettiere di Sicilia</b><br><span style="opacity:.8">Da Catania a Cefalù, tappa per tappa.</span></span></div>`:""}
-   <p class="lead">Viaggia in carretto lungo la trazzera: a ogni tappa ricevi un timbro dipinto come una maiolica. Nella versione reale il timbro arriva a ogni soggiorno nella rete, inquadrando la maiolica in camera.</p>
-   <div class="pass">${TAPPE.map((t,i)=>`<div class="slot">${stamps.has(i)?`<span class="st" style="${stampStyle(i)}"></span>`:`<span class="no">${i+1}</span>`}<b>${t[2]}</b><small>${stamps.has(i)?t[3]:"da scoprire"}</small></div>`).join("")}</div>
-   <div class="acts2"><button class="btn red" type="button" data-act="carretto">${n?"Riprendi il viaggio in carretto":"Parti in carretto"}</button></div>`;}
-
 /* ============ Pergamene (sezioni) ============ */
 const IC={app:'<rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 18h4"/>',coin:'<circle cx="12" cy="12" r="9"/><path d="M15 9a3 3 0 0 0-3-1.5c-1.7 0-3 .9-3 2.2 0 3 6 1.6 6 4.6 0 1.3-1.3 2.2-3 2.2a3 3 0 0 1-3-1.5M12 6v1.5M12 16.5V18"/>',swap:'<path d="M4 8h14l-4-4M20 16H6l4 4"/>',people:'<circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20a6 6 0 0 1 12 0M15 20a4.5 4.5 0 0 1 7 0"/>',cart:'<path d="M3 4h2l2.5 11h11L21 7H6.5"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/>',star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>'};
 const SV=[["app",C.rosso,"La tua app e il tuo sito","Il QR sulla maiolica apre l'app col tuo nome: Wi-Fi, porta, regole, chat. Più la tua vetrina pubblica sull'isola."],["coin",C.verde,"Servizi extra che vendi tu","Transfer, late check-out, colazione con granita, escursioni sull'Etna. Il ricavo resta a te."],["swap",C.blu,"Mai più un cliente perso","Sei pieno? Giri la richiesta alle strutture vicine con un tocco."],["people",C.rosso,"Gruppi che da solo non prendi","Matrimoni, squadre, aziende, i giorni di Sant'Agata. Ricevi la parte che puoi accogliere."],["cart",C.verde,"Acquisti da grossista","Biancheria, set di cortesia, detersivi e cialde ordinati insieme, a prezzo di gruppo."],["star",C.blu,"Personale di fiducia","Pulizie, manutentori e lavanderie valutati dagli altri host."]];
 const PANELS={
  viaggio:()=>tripHTML(),
- passaporto:()=>passHTML(),
  ospiti:()=>`<span class="eyebrow">Per gli ospiti</span><h2 id="m-title">L'ospite non cerca niente. Lo trova in camera.</h2>
   <div class="steps"><div class="step"><h3>Inquadra la maiolica</h3><p>Il QR è dipinto su una piastrella di ceramica, sul comodino o accanto alla porta. Nessuna app da scaricare.</p></div><div class="step"><h3>Apre la sua casa</h3><p>L'app del suo B&amp;B, con nome e colori della struttura: Wi-Fi, porta, regole, differenziata, servizi extra, chat con l'host.</p></div><div class="step"><h3>Sceglie la prossima tappa</h3><p>Dall'Etna a Ortigia, le strutture della rete con uno sconto diretto. Il viaggio resta in famiglia.</p></div></div>
   <p class="lead">Cerchi dove dormire? Ogni luce sull'isola è una struttura della rete. Scrivi direttamente all'host: niente commissioni, niente intermediari.</p>
@@ -763,7 +766,7 @@ const PANELS={
    <div class="tile"><span>Chat</span><b>Scrivi a ${s.host}</b></div></div></div></div></div>`;}};
 let lastFocus=null;
 let curPanel=null;
-function openPanel(k,arg){$("stampup").hidden=true;$("toast").hidden=true;curPanel=k;if(k!=="viaggio"&&k!=="passaporto")lastFocus=document.activeElement;else if($("modal").hidden)lastFocus=document.activeElement;$("mmenu").hidden=true;$("m-body").innerHTML=PANELS[k](arg);$("modal").hidden=false;$("modal").querySelector(".sheet").scrollTop=0;$("modal").querySelector(".x").focus();
+function openPanel(k,arg){$("toast").hidden=true;curPanel=k;if(k!=="viaggio"&&k!=="passaporto")lastFocus=document.activeElement;else if($("modal").hidden)lastFocus=document.activeElement;$("mmenu").hidden=true;$("m-body").innerHTML=PANELS[k](arg);$("modal").hidden=false;$("modal").querySelector(".sheet").scrollTop=0;$("modal").querySelector(".x").focus();
   if(k==="gruppi"){$("g-n").oninput=gcalc;$("g-town").onchange=gcalc;gcalc();}
   if(k==="iscriviti")$("jform").onsubmit=join;}
 function closePanel(){curPanel=null;$("modal").hidden=true;if(lastFocus&&lastFocus.focus)lastFocus.focus();}
@@ -844,9 +847,24 @@ const R={};
   R.car=makeCarretto();R.car.g.scale.setScalar(.075);island.add(R.car.g);R.u=0;R.target=0;R.stop=0;})();
 function routeAt(u){u=Math.max(0,Math.min(1,u));const f=u*R.N,i=Math.min(R.N-1,Math.floor(f)),t=f-i;return R.pts[i].clone().lerp(R.pts[i+1],t);}
 function placeCar(){const p=routeAt(R.u),q=routeAt(R.u+.002).sub(p);R.car.g.position.copy(p);R.car.g.rotation.y=Math.atan2(-q.z,q.x);return{p,dir:q.setY(0).normalize()};}
-function showStop(i){R.stop=i;if(mode==="carretto")earnStamp(i);const t=TAPPE[i];$("t-n").textContent=`TAPPA ${i+1} DI ${TAPPE.length} · ${t[2].toUpperCase()}`;$("t-h").textContent=t[3];$("t-p").textContent=t[4];
+function stopNear(i){const t=TAPPE[i],x=PX(t[0]),z=PZ(t[1]);return S.filter(s=>Math.hypot(s.x-x,s.z-z)<.6);}
+const stopPt=i=>({x:PX(TAPPE[i][0]),z:PZ(TAPPE[i][1])});
+function stopChoice(i){return trip.find(t=>t.stop===i);}
+function renderSleep(i){const ch=stopChoice(i),opts=stopNear(i).filter(s=>(s.free&&s.beds>=2&&!trip.some(t=>t.id===s.id&&t.stop!==i))||(ch&&ch.id===s.id)).sort((a,b)=>a.price-b.price).slice(0,3);
+  $("t-night").innerHTML=ch?`<span class="sw" style="background-image:url(${tileURL(S[ch.id].tp)})"></span><span>Stanotte: <b>${S[ch.id].n}</b> · ${ch.n} ${ch.n===1?"notte":"notti"}</span><button type="button" id="t-change">Cambia</button>`:"";
+  $("t-sleep").innerHTML=opts.length?opts.map(s=>`<div class="sopt${ch&&ch.id===s.id?" on":""}"><span class="sw" style="background-image:url(${tileURL(s.tp)})"></span><span style="min-width:0"><b>${s.n}</b><small>${s.type} · ${s.beds} posti · host ${s.host}</small></span><button class="btn ${ch&&ch.id===s.id?"line":"red"}" type="button" data-sleep="${s.id}">${ch&&ch.id===s.id?"Scelta ✓":s.price+" € · Dormo qui"}</button></div>`).join(""):`<p style="margin:0">Nessuna struttura libera stanotte qui: prova la tappa successiva.</p>`;
+  $("t-near").textContent=ch?"Altre opzioni":`Dove dormire (${opts.length})`;
+  $("t-trip").hidden=!trip.length;$("t-trip").textContent=`Il mio viaggio · ${trip.length}`;
+  const c=$("t-change");if(c)c.onclick=()=>{$("t-sleep").hidden=false;};}
+function showStop(i){R.stop=i;const t=TAPPE[i];$("t-n").textContent=`TAPPA ${i+1} DI ${TAPPE.length} · ${t[2].toUpperCase()}`;$("t-h").textContent=t[3];$("t-p").textContent=t[4];
   $("t-prog").innerHTML=TAPPE.map((_,k)=>`<i class="${k<=i?"on":""}"></i>`).join("");$("t-prev").disabled=i===0;$("t-next").textContent=i===TAPPE.length-1?"Ricomincia ↺":"Avanti →";
-  const x=PX(t[0]),z=PZ(t[1]),near=S.filter(s=>Math.hypot(s.x-x,s.z-z)<.9);$("t-near").textContent=`${fmt(near.length)} strutture qui intorno`;$("t-near").onclick=()=>{setMode("isola");I.vis.fill(0);near.forEach(s=>I.vis[s.id]=1);openDrawer();matched=near;shown=40;renderList();frameIds(near.map(s=>s.id));};}
+  if(i>0){const km=KM(stopPt(i-1),stopPt(i)),min=Math.round(km*1.1/5)*5;$("t-km").innerHTML=`<b>${km} km</b><span>da ${TAPPE[i-1][2]}</span><b>~${min<60?min+" min":Math.floor(min/60)+" h "+(min%60?min%60+" min":"")}</b><span>in auto</span>`;}else $("t-km").innerHTML=`<span>Punto di partenza del giro</span>`;
+  $("t-sleep").hidden=true;renderSleep(i);}
+$("t-near").onclick=()=>{$("t-sleep").hidden=!$("t-sleep").hidden;};
+$("t-sleep").addEventListener("click",e=>{const b=e.target.closest("[data-sleep]");if(!b)return;const id=+b.dataset.sleep,i=R.stop,old=stopChoice(i);
+  if(old&&old.id===id)return;if(old)trip=trip.filter(t=>t!==old);
+  trip=trip.filter(t=>t.id!==id);trip.push({id,n:1,stop:i});trip.sort((a,b)=>(a.stop??99)-(b.stop??99));
+  tripSave();renderSleep(i);$("t-sleep").hidden=true;toast(`Stanotte a ${TAPPE[i][2]}: ${S[id].n}`);});
 $("t-next").onclick=()=>{R.free=false;const n=R.stop+1;if(n>=TAPPE.length){R.u=0;R.target=0;showStop(0);return;}R.target=R.stops[n];showStop(n);};
 $("t-prev").onclick=()=>{R.free=false;const n=Math.max(0,R.stop-1);R.target=R.stops[n];showStop(n);};
 
@@ -970,13 +988,14 @@ function buildBorgo(){if(B.built)return;B.built=true;const sc=borgo;
 
 /* ============ Modalità ============ */
 let mode="isola",idle=0;
-const HINTS={isola:"Trascina per girare l'isola · rotella o pizzico per avvicinarti · tocca una casetta: è una struttura",borgo:"Trascina per guardarti intorno · tocca il selciato per camminare · tocca una porta per entrare",carretto:"Avanti e Indietro per cambiare tappa · rotella o frecce per far camminare il cavallo"};
+const HINTS={_:0,isola:"Trascina per girare l'isola · rotella o pizzico per avvicinarti · tocca una casetta: è una struttura",borgo:"Trascina per guardarti intorno · tocca il selciato per camminare · tocca una porta per entrare",carretto:"A ogni tappa scegli dove dormire · Avanti per proseguire il giro"};
 let hintT=0;
 function setMode(m){mode=m;document.querySelectorAll("[data-mode]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.mode===m));
   ctl.enabled=m==="isola";$("scroll").hidden=m!=="carretto";LB.style.display=m==="isola"?"":"none";$("tip").hidden=true;
   if(m!=="isola"){$("card").hidden=true;}
   if(m==="borgo")buildBorgo();
   if(renderPass){renderPass.scene=m==="borgo"?borgo:island;renderPass.camera=m==="borgo"?camB:camI;}
+  if(m==="carretto"&&innerWidth<860)camI.setViewOffset(innerWidth,innerHeight,0,Math.round(innerHeight*.2),innerWidth,innerHeight);else camI.clearViewOffset();
   if(m==="carretto"){R.u=R.stops[R.stop];R.target=R.u;showStop(R.stop);const{p,dir}=placeCar();camI.position.copy(p).addScaledVector(dir,-1.2).add(new THREE.Vector3(0,.6,0));}
   if(m==="isola"&&prevMode==="carretto"){ctl.target.copy(R.car.g.position);}
   prevMode=m;$("hint").textContent=HINTS[m];$("hint").style.opacity=1;hintT=0;
@@ -1012,7 +1031,7 @@ function openDoor(d){if(d.panel==="vetrina"){openDrawer();}else openPanel(d.pane
 
 /* ============ Loop ============ */
 let last=performance.now(),tAll=0;
-addEventListener("resize",()=>{renderer.setSize(innerWidth,innerHeight,false);[camI,camB].forEach(c=>{c.aspect=innerWidth/innerHeight;c.updateProjectionMatrix();});if(composer){composer.setSize(innerWidth,innerHeight);}});
+addEventListener("resize",()=>{renderer.setSize(innerWidth,innerHeight,false);if(mode==="carretto"&&innerWidth<860)camI.setViewOffset(innerWidth,innerHeight,0,Math.round(innerHeight*.2),innerWidth,innerHeight);else camI.clearViewOffset();[camI,camB].forEach(c=>{c.aspect=innerWidth/innerHeight;c.updateProjectionMatrix();});if(composer){composer.setSize(innerWidth,innerHeight);}});
 function applyTod(){const T=todCur;
   [[I,island],[B,borgo]].forEach(([o,sc])=>{if(!o.sky)return;o.sky.u.top.value.copy(T.top);o.sky.u.hor.value.copy(T.hor);o.sky.u.sunC.value.copy(T.sunC);o.sky.u.sunDir.value.copy(T.sun);o.sky.stars.material.opacity=T.stars;
     o.sun.color.copy(T.light);o.sun.intensity=T.li;o.sun.position.copy(T.sun).multiplyScalar(50);o.hemi.color.copy(T.hemiS);o.hemi.groundColor.copy(T.hemiG);o.hemi.intensity=T.hi;sc.fog.color.copy(T.fog);});
